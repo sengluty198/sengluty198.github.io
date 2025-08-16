@@ -1,0 +1,202 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>win10无法息屏排查 | sengluty198</title>
+
+<link rel="shortcut icon" href="https://sengluty198.github.io/favicon.ico?v=1755346733710">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://sengluty198.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z787K1B62F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-Z787K1B62F');
+    </script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            sengluty198
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io" class="menu gt-a-link">
+                            主页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/zhuzhou" class="menu gt-a-link">
+                            株洲
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/saying" class="menu gt-a-link">
+                            吐槽
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1755346733710" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    win10无法息屏排查
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2025-04-19 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>win10的电源计划之前设置了10分钟关闭显示器，之前一直工作良好没有出现过失效的状态，但是最近突然失灵，即使已经10分钟过去甚至超过10分钟屏幕依旧未进入息屏状态，所以只好开始查找解决办法。<br>
+一开始以为是电源计划有变化于是打开电源选项，经过排查发现各个设置项没有问题，和出问题之前的设置项是一样的，接下来没办法只能前往神通广大的互联网查找资料了，在查找资料的过程中有网友提到大概率是有程序阻止了息屏状态的启动，通过powercfg /request命令可以查看应用程序和驱动程序的电源请求，其实如果在这一步我仔细查看的话问题很快就能解决，但是由于我的疏忽，完美地错过了检测结果的第一行把焦点放在了其中一行的中文显示上，文本显示为：“PERFBOOST: [DRIVER] 旧的内核调用程序 Power Manager”，一眼过去我以为问题出在这里，于是沿着这个关键词继续查，查到有网友说使用Powercfg -requestsoverride命令可以解决，在尝试无效后我决定调整思路，不再沿着原来的思路排查。<br>
+在相关帖子中有一条引起了我的注意，这条帖子说可能是有程序占用导致的，于是我看了一下我还挂在后台的程序，果不其然，还有一个连连控挂在后台，于是我把程序后台关掉并把息屏时间调整为1分钟测试了一下，一切正常，终于可以正常息屏了，我长叹一口气。<br>
+在后期复盘的过程中我发现还是自己太过于粗心大意了，其实在第一阶段排查期间使用powercfg /request命令后的第一行就提示了asklink.exe process（连连控），但是被大意的我忽视了，如果当时发现了这一个进程就没有后面的事情了。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://sengluty198.github.io/post/huo-hu-liu-lan-qi-pei-zhi-bian-ji-qi-bei-fen/" class="post-title gt-a-link">
+                    火狐浏览器配置编辑器备份
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/win10-wu-fa-xi-ping-pai-cha/" class="leancloud_visitors" data-flag-title="win10无法息屏排查">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'qfg3BEmkT6nJegqJe9TKhRpZ-gzGzoHsz',
+		appKey: 'Y7wkePjcC3kw8DOA0psnjcSf',
+		avatar: 'hide',
+		pageSize: 5,
+		recordIp: true,
+		placeholder: '欢迎评论交流',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">sengluty198胡说八道的地盘</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://sengluty198.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

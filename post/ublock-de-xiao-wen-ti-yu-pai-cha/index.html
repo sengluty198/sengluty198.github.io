@@ -1,0 +1,203 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>ublock的小问题与排查 | sengluty198</title>
+
+<link rel="shortcut icon" href="https://sengluty198.github.io/favicon.ico?v=1755346733710">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://sengluty198.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z787K1B62F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-Z787K1B62F');
+    </script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            sengluty198
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io" class="menu gt-a-link">
+                            主页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/zhuzhou" class="menu gt-a-link">
+                            株洲
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/saying" class="menu gt-a-link">
+                            吐槽
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://sengluty198.github.io/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1755346733710" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    ublock的小问题与排查
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2025-03-06 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>我使用的主力搜索引擎一直是必应，但是必应搜索一直存在各种小问题，比如为推广自家浏览器而在其他浏览器弹出的app打开横幅，搜索页面广告，服务器偶尔抽风等，这些问题通常可以通过脚本或者插件解决。<br>
+今天在手机端使用必应搜索的时候发现翻页到第二页只能加载页面前半部分，后半部分直接消失，连带消失的还有翻页按钮，但如果在第二页执行刷新即可全部加载，由于最近频繁在多个移动端浏览器遇到这个问题于是我开始排查造成这个问题的原因。<br>
+我的大致排查思路是先排查两个插件：暴力猴和ublock origin。经过排查发现此问题与暴力猴没有关系，接下来排查的重点就全在ublock上，对ublock进行排查只能通过逐条停用去广告规则来验证，在排除自定义导入规则后我逐条对默认启用的规则进行了测试，最终找出问题出在默认规则的内置条目，当取消启用内置规则时，网页恢复了正常。<br>
+后续我找到了一个博主也遇到了类似情况并在他的个人博客中提到了触发问题的具体规则是【uBlock filters – Quick fixes】，此处贴出原博的<a href="https://tomoemami.github.io/20241211141815-blog_%E5%8F%96%E6%B6%88ubo%E5%AF%BC%E8%87%B4bing%E5%87%BA%E9%94%99%E7%9A%84%E8%A7%84%E5%88%99.html">地址</a></p>
+<figure data-type="image" tabindex="1"><img src="https://sengluty198.github.io/post-images/1741239193908.png" alt="" loading="lazy"></figure>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://sengluty198.github.io/post/ben-yue-gou-shu-ji-lu/" class="post-title gt-a-link">
+                    2025年2月购书记录
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/ublock-de-xiao-wen-ti-yu-pai-cha/" class="leancloud_visitors" data-flag-title="ublock的小问题与排查">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'qfg3BEmkT6nJegqJe9TKhRpZ-gzGzoHsz',
+		appKey: 'Y7wkePjcC3kw8DOA0psnjcSf',
+		avatar: 'hide',
+		pageSize: 5,
+		recordIp: true,
+		placeholder: '欢迎评论交流',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">sengluty198胡说八道的地盘</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://sengluty198.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

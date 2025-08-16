@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://sengluty198.github.io</id>
+    <title>sengluty198</title>
+    <updated>2025-08-16T12:18:56.190Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://sengluty198.github.io"/>
+    <link rel="self" href="https://sengluty198.github.io/atom.xml"/>
+    <subtitle>sengluty198胡说八道的地盘</subtitle>
+    <logo>https://sengluty198.github.io/images/avatar.png</logo>
+    <icon>https://sengluty198.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, sengluty198</rights>
+    <entry>
+        <title type="html"><![CDATA[win10修改mtu命令]]></title>
+        <id>https://sengluty198.github.io/post/win10-xiu-gai-mtu-ming-ling/</id>
+        <link href="https://sengluty198.github.io/post/win10-xiu-gai-mtu-ming-ling/">
+        </link>
+        <updated>2025-08-14T03:24:49.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>MTU（Maximum Transmission Unit，最大传输单元）</strong><br>
+是指网络通信中，设备能够传输的最大数据包大小（以字节为单位），它决定了单个网络数据包可以承载的最大数据量，超过这个限制的数据会被分片（fragmentation）或丢弃。<br>
+一、win10修改mtu值<br>
+1、在命令提示符中输入：<font style="background-color:yellow;">netsh interface ipv4 show subinterfaces </font>按下回车键查看当前的mtu值<br>
+<img src="https://sengluty198.github.io/post-images/1755144245359.png" alt="" loading="lazy"><br>
+2、接着按下面格式输入：<font style="background-color:yellow;">netsh interface ipv4 set subinterface &quot;连接名&quot; mtu=值 store=persistent（如：netsh interface ipv4 set subinterface &quot;WLAN&quot; mtu=1492 store=persistent）</font> 按下回车键，出现“确定”提示 则说明修改完成。<br>
+<img src="https://sengluty198.github.io/post-images/1755144266801.png" alt="" loading="lazy"><br>
+<strong>设置mtu值的方法</strong></p>
+<p>1、打开命令提示符（管理员）， 输入：ping -l 1472 -f www.baidu.com（探测百度为例），请求将一个不允许分割的 1472 字节的数据包发送出去。<br>
+其中，<br>
+-l(小写L)  size：要发送的缓冲区大小（字节）。默认值为32。<br>
+-f：设置“不分段”标志，在数据包超出本地网络时，不允许 IP 分段<br>
+一般情况ping -f 是和-l 组合使用的，用来测试MTU的大小，-f参数是不分段，而-l是ICMP数据长度。格式为ping -f -l (ICMP数据长度) 目标主机IP地址。MTU是指一种通信协议的某一层上面所能通过的最大数据包大小（以字节为单位）。</p>
+<p>取值步骤1</p>
+<p>2、若是出现传输失败，提示需要拆分数据包的情况，则说明当前网络的 MTU 值要比指定的 1472 小，因此我们就适当调小数据包的大小（比如 1450），输入：ping -l 1450 -f www.baidu.com按下回车键；</p>
+<p>取值步骤2</p>
+<p>3、如果出现传输成功，则说明当前网络的 MTU 值比 1450 要大。于是我们需要稍微调大数值（比如1460），以便求得最为精确的网络 MTU 值。<br>
+<img src="https://sengluty198.github.io/post-images/1755144320692.png" alt="" loading="lazy"></p>
+<p>取值步骤3</p>
+<p>4、找到最大合适数值后加上28（IP头20字节+ICMP头8字节）就是最终数值。</p>
+<p>参考文献：<br>
+1.<a href="https://sclub.recmg.com/tech/blogs/how-to-change-mtu-on-windows">如何在 Windows 11/10 上更改 MTU</a><br>
+2.<a href="https://www.cnblogs.com/waliwaliwa/p/7502997.html">Windows上最大传输单元MTU值的查看和设置</a><br>
+3.<a href="https://mp.weixin.qq.com/s/AKLwWXOcU02hq5wLCpEhAw">网工100个知识点之24：什么是MTU？</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[火狐自定义配置文件]]></title>
+        <id>https://sengluty198.github.io/post/huo-hu-zi-ding-yi-pei-zhi-wen-jian/</id>
+        <link href="https://sengluty198.github.io/post/huo-hu-zi-ding-yi-pei-zhi-wen-jian/">
+        </link>
+        <updated>2025-06-12T03:23:17.000Z</updated>
+        <content type="html"><![CDATA[<p>听说<a href="https://tete009.pages.dev/en-US/software">tete009firefox</a>通过重新编译针对不同性能的pc有不同的优化，所以下载准备试用一段时间，由于一时疏忽没有找到官网，于是从第三方站点随意下载了一个版本。<br>
+后续在冲浪查找tete009浏览器的信息时突然发现了比我正在使用的版本号更高的tete009，这时我才想起要去官网看一下，结果是我正在使用的版本确实低了几个版本号，于是从官网下载了作者编译好的压缩包。<br>
+一开始我将新版本覆盖了旧版本的文件夹，结果一打开我傻眼了，我之前的配置好的选项和扩展都丢失了，直接恢复到了刚使用的初始状态。<br>
+这个时候我还没有意识到问题，重新配置了浏览器继续使用，这个时候我按照网友的<a href="https://sspai.com/post/87616">配置</a>配置了垂直标签页，根据自己的审美调整了浏览器的一些外观参数，但是等到后续的更新浏览器的时候我才开始犯难起来，因为前车之鉴现在已经不敢随意解压覆盖原来的文件夹，只能单独解压出来另寻他法。<br>
+我折腾了半天，不管是网友提供的方法还是自己的方法都没有改善，加上自己一时耍小聪明以为配置文件删除后会重新生成所以把最新版本的配置文件直接删除了，接下来浏览器一直提示无法加载配置文件而无法打开，在一段时间的焦灼后，我从网友的删除profiles.ini文件找到灵感解决了这个问题，以下是我的解决方法。<br>
+1、打开火狐浏览器的配置文件夹，一般路径为：……AppData\Roaming\Mozilla\Firefox\Profiles<br>
+2、明确要修改配置的浏览器目前使用的配置文件夹和要重定向到的配置文件夹并复制目标文件夹名称<br>
+3、返回上级打开profiles.ini文件<br>
+4、修改对应路径(path)到要重定向的目标配置文件夹</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[win10无法息屏排查]]></title>
+        <id>https://sengluty198.github.io/post/win10-wu-fa-xi-ping-pai-cha/</id>
+        <link href="https://sengluty198.github.io/post/win10-wu-fa-xi-ping-pai-cha/">
+        </link>
+        <updated>2025-04-19T02:11:49.000Z</updated>
+        <content type="html"><![CDATA[<p>win10的电源计划之前设置了10分钟关闭显示器，之前一直工作良好没有出现过失效的状态，但是最近突然失灵，即使已经10分钟过去甚至超过10分钟屏幕依旧未进入息屏状态，所以只好开始查找解决办法。<br>
+一开始以为是电源计划有变化于是打开电源选项，经过排查发现各个设置项没有问题，和出问题之前的设置项是一样的，接下来没办法只能前往神通广大的互联网查找资料了，在查找资料的过程中有网友提到大概率是有程序阻止了息屏状态的启动，通过powercfg /request命令可以查看应用程序和驱动程序的电源请求，其实如果在这一步我仔细查看的话问题很快就能解决，但是由于我的疏忽，完美地错过了检测结果的第一行把焦点放在了其中一行的中文显示上，文本显示为：“PERFBOOST: [DRIVER] 旧的内核调用程序 Power Manager”，一眼过去我以为问题出在这里，于是沿着这个关键词继续查，查到有网友说使用Powercfg -requestsoverride命令可以解决，在尝试无效后我决定调整思路，不再沿着原来的思路排查。<br>
+在相关帖子中有一条引起了我的注意，这条帖子说可能是有程序占用导致的，于是我看了一下我还挂在后台的程序，果不其然，还有一个连连控挂在后台，于是我把程序后台关掉并把息屏时间调整为1分钟测试了一下，一切正常，终于可以正常息屏了，我长叹一口气。<br>
+在后期复盘的过程中我发现还是自己太过于粗心大意了，其实在第一阶段排查期间使用powercfg /request命令后的第一行就提示了asklink.exe process（连连控），但是被大意的我忽视了，如果当时发现了这一个进程就没有后面的事情了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[火狐浏览器配置编辑器备份]]></title>
+        <id>https://sengluty198.github.io/post/huo-hu-liu-lan-qi-pei-zhi-bian-ji-qi-bei-fen/</id>
+        <link href="https://sengluty198.github.io/post/huo-hu-liu-lan-qi-pei-zhi-bian-ji-qi-bei-fen/">
+        </link>
+        <updated>2025-04-15T08:34:06.000Z</updated>
+        <content type="html"><![CDATA[<p>众所周知修改了配置编辑器的火狐才是真正的火狐（狗头），每次重装火狐系的浏览器的时候其他大部分功能都可以通过账号同步解决，但是配置编辑器的修改选项只能同步部分修改为true的，所以为了防止后面忘记修改过的选项，故在此做一个备份，本修改的配置选项建立在个人使用习惯，仅供参考。<br>
+<strong>1、同步部分配置编辑器修改的选项</strong><br>
+<em>services.sync.prefs.sync.browser.urlbar.suggest.history *     设置为true<br>
+<em>services.sync.prefs.dangerously_allow_arbitrary *               设置为true<br>
+<strong>2、双击关闭标签页</strong><br>
+<em>browser.tabs.closeTabByDblclick</em>                                    设置为true<br>
+<strong>3、滚动条样式修改（两种方案）</strong><br>
+Ⅰ <em>widget.non-native-theme.scrollbar.style</em>                      共有6种样式，我选1<br>
+0：平台默认滚动条样式<br>
+1：macOS 滚动条样式<br>
+2：linux 滚动条样式<br>
+3：Android 滚动条样式<br>
+4：Windows10滚动条样式<br>
+5：Windows11滚动条样式<br>
+Ⅱ 个人优选的进一步设置，感谢Ryan快快跑大佬的<a href="https://blog.iplayloli.com/enable-windows-11-style-scrollbar-in-firefox-browser.html">博客</a>指导。<br>
+①在地址栏中输入about:config更改高级配置<br>
+②在搜索框中输入</em>widget.non-native-theme.scrollbar.style</em>将值设为5<br>
+③在搜索框中输入<em>ui.useOverlayScrollbars</em>将值设为1<br>
+注：<em>ui.useOverlayScrollbars</em>使用“覆盖滚动条”（使滚动条悬浮在屏幕之上）<br>
+<strong>4、外部链接后台打开</strong><br>
+<em>browser.tabs.loadDivertedInBackground</em>                               设置为true<br>
+<strong>5、书签栏在新标签页打开</strong><br>
+*browser.tabs.loadBookmarksInTabs *                                    设置为true<br>
+<strong>6、书签在后台打开</strong><br>
+<em>browser.tabs.loadBookmarksInBackground</em>                           设置为true<br>
+<strong>7、关闭最后标签页不关闭浏览器</strong><br>
+*browser.tabs.closeWindowWithLastTab  *                              设置为false<br>
+<strong>8、使用紧凑皮肤</strong><br>
+*browser.uidensity *                                                          设置为1<br>
+<strong>9、添加自定义搜索引擎</strong><br>
+<em>browser.urlbar.update2.engineAliasRefresh</em>                           设置为true<br>
+<strong>10、关闭“此连接不安全, 输入的登录信息可能被窃取”提示</strong><br>
+<em>security.insecure_field_warning.contextual.enabled</em>                 设置为false</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ublock的小问题与排查]]></title>
+        <id>https://sengluty198.github.io/post/ublock-de-xiao-wen-ti-yu-pai-cha/</id>
+        <link href="https://sengluty198.github.io/post/ublock-de-xiao-wen-ti-yu-pai-cha/">
+        </link>
+        <updated>2025-03-06T04:15:10.000Z</updated>
+        <content type="html"><![CDATA[<p>我使用的主力搜索引擎一直是必应，但是必应搜索一直存在各种小问题，比如为推广自家浏览器而在其他浏览器弹出的app打开横幅，搜索页面广告，服务器偶尔抽风等，这些问题通常可以通过脚本或者插件解决。<br>
+今天在手机端使用必应搜索的时候发现翻页到第二页只能加载页面前半部分，后半部分直接消失，连带消失的还有翻页按钮，但如果在第二页执行刷新即可全部加载，由于最近频繁在多个移动端浏览器遇到这个问题于是我开始排查造成这个问题的原因。<br>
+我的大致排查思路是先排查两个插件：暴力猴和ublock origin。经过排查发现此问题与暴力猴没有关系，接下来排查的重点就全在ublock上，对ublock进行排查只能通过逐条停用去广告规则来验证，在排除自定义导入规则后我逐条对默认启用的规则进行了测试，最终找出问题出在默认规则的内置条目，当取消启用内置规则时，网页恢复了正常。<br>
+后续我找到了一个博主也遇到了类似情况并在他的个人博客中提到了触发问题的具体规则是【uBlock filters – Quick fixes】，此处贴出原博的<a href="https://tomoemami.github.io/20241211141815-blog_%E5%8F%96%E6%B6%88ubo%E5%AF%BC%E8%87%B4bing%E5%87%BA%E9%94%99%E7%9A%84%E8%A7%84%E5%88%99.html">地址</a></p>
+<figure data-type="image" tabindex="1"><img src="https://sengluty198.github.io/post-images/1741239193908.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[2025年2月购书记录]]></title>
+        <id>https://sengluty198.github.io/post/ben-yue-gou-shu-ji-lu/</id>
+        <link href="https://sengluty198.github.io/post/ben-yue-gou-shu-ji-lu/">
+        </link>
+        <updated>2025-02-21T07:03:43.000Z</updated>
+        <content type="html"><![CDATA[<p> 随着二月份的到来春节已经接近尾声，在本月下旬盘点一下本月购入的书籍，其中包括拼多多平台购入的新书和孔夫子旧书网购入的二手书籍，以下列一个清单以作记录。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">书名</th>
+<th style="text-align:center">日期</th>
+<th style="text-align:center">价格</th>
+<th style="text-align:center">平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">梦醒子</td>
+<td style="text-align:center">2025-02-06</td>
+<td style="text-align:center">29</td>
+<td style="text-align:center">拼多多</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">大萧条时期的中国</td>
+<td style="text-align:center">2025-02-12</td>
+<td style="text-align:center">25.5</td>
+<td style="text-align:center">拼多多</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">亦神亦祖</td>
+<td style="text-align:center">2025-02-14</td>
+<td style="text-align:center">28.79</td>
+<td style="text-align:center">拼多多</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">湖湘世家-善化贺氏</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">株洲文史第34辑株洲人看世界</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">9.99</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">中国共产党株洲县历史：1921-2008</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">中国共产党株洲历史上的今天1919-2021</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">16.8</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">中国共产党株洲历史（1-3卷）</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">65</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">湖湘世家-鼓磉洲罗氏</td>
+<td style="text-align:center">2025-02-18</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">湖南省煤田地质勘探史</td>
+<td style="text-align:center">2025-02-20</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">湖南省志-铁路（1978-2002）</td>
+<td style="text-align:center">2025-02-20</td>
+<td style="text-align:center">45</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">湖湘文库-广湖南考古略（套装共两册）</td>
+<td style="text-align:center">2025-02-20</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">共12本</td>
+<td style="text-align:center">2025年2月</td>
+<td style="text-align:center">共380.08</td>
+<td style="text-align:center">孔夫子旧书网</td>
+</tr>
+</tbody>
+</table>
+<p> 前三本均购于拼多多平台（不得不说多多购书价格还是挺香的），后面的地方文史资料则购于孔夫子旧书网平台，本月购书一共花费380.08元，主要的消费大头是地方文史资料，此类资料因为在市面上发行量小，少有再版所以只能在旧书平台购入，并且由于书商的炒作与物以稀为贵等原因导致某些部分资料不仅价高，甚至有时有价无市。此类文史资料书籍主要以参考查阅为主，阅读价值并不高，且难以通读全本，最好的处理方式是对其进行OCR扫描识别建立电子文库进行检阅，实体书籍查阅起来极为不便且需要高昂的购入费用，实在不是最优解。<br>
+ 今天写博客顺便浅学了一下markdown的表格表达形式，在此需要说明的是markdown只能做简单的表格展示复杂的表格展示则需要借助外部引入和其他工具，markdown的表格使用说明可以参考<a href="https://markdown.com.cn/extended-syntax/tables.html">此文档</a>。另外值得注意的是如果需要结束表格可以通过回车一次结束。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[更换博客主题]]></title>
+        <id>https://sengluty198.github.io/post/huan-zhu-ti/</id>
+        <link href="https://sengluty198.github.io/post/huan-zhu-ti/">
+        </link>
+        <updated>2025-01-16T05:18:03.000Z</updated>
+        <content type="html"><![CDATA[<p>我的博客原来的老主题是使用的gridea的默认主题-simple，虽然已经足够简洁明了但美中不足的是文章的图标显示过大，所以捣鼓了一下在官方的<a href="https://open.gridea.dev/themes/">主题市场</a>今天给博客换了一个<a href="https://github.com/gloduck/gridea-clean">主题-pure</a>，感谢主题开发者的开发制作，顺便记录一下换主题的流程，其实就是简单的替换选择，但还是记录一下以待有需要的时候参考。</p>
+<ul>
+<li>第一步：先打开<a href="https://open.gridea.dev/themes/">主题市场</a>，找到自己喜欢的主题，官方主题市场分为付费主题以及免费主题，根据自己的需要操作。也可以前往<a href="www.github.com">github</a>搜索gridea主题，也可以找到网友原创或者二次开发的主题。</li>
+<li>第二步：下载主题，如果是在官方主题市场选择好主题后会跳转github，跳转后有两个途径可以下载。如果有release界面的可以前往release界面直接下载作者打包好的主题压缩包，如果没有release界面的话点击code界面的code按钮可以看到Download zip字样，然后点击Download zip即可下载主题压缩包，在下载使用前，需要仔细阅读主题作者的readme。</li>
+<li>第三步：回到gridea主界面找到gridea文件保存路径并打开路径，在文件保存文件夹中有themes文件夹，接下来将下载的zip文件解压至themes文件夹中即可。</li>
+<li>第四步：重启gridea并进入主题选择界面即可选择下载的主题，然后保存并同步就可以使用新主题了，祝大家使用愉快</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[博客重新开张]]></title>
+        <id>https://sengluty198.github.io/post/bo-ke-chong-xin-kai-zhang/</id>
+        <link href="https://sengluty198.github.io/post/bo-ke-chong-xin-kai-zhang/">
+        </link>
+        <updated>2024-12-11T08:41:20.000Z</updated>
+        <content type="html"><![CDATA[<p>说来搞笑，2024年12月11日一个偶然的时刻突然打开了已经停更了许久的个人博客，大家都知道github在国内的访问一直都不是很稳定，在使用特殊手段后终于打开了这个创建于若干年前的个人记录博客，记得上次博客的主题还是hexo，当初为了让博客简洁干净特意选择了hexo的主题，但是一个干净的主题并没有让这个仓库逃脱停更的命运。看着之前积攒的草稿以及域名，我陷入了沉思，思考是否应该再次启用个人博客记录一些想法，而不是没到想要写点什么却刚打开电脑或者纸张就放弃了，于是又开始尝试捣鼓gridea重新申请token，顺便记录一下本次token的过期时间（<em><strong>2025年12月11日</strong></em>），提醒自己到期记得重新申请，博客匆匆重启，仅作简单记录，希望后续的更新能够继续坚持下去，对了这次博客内的栏目稍微有些许改动，加了两个新的tag，删除了一个无效tag，也许后面还会有新的调整，但是那是后话了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[个人收集去广告规则]]></title>
+        <id>https://sengluty198.github.io/post/remove-ad/</id>
+        <link href="https://sengluty198.github.io/post/remove-ad/">
+        </link>
+        <updated>2022-11-24T06:55:14.000Z</updated>
+        <content type="html"><![CDATA[<p>本文规则为多端规则，包括pc以及手机端hosts规则，adb、abp规则<br>
+手机端如果未root推荐自带广告过滤器的浏览器使用或者adguard，如已root则推荐相关magisk模块、adaway等修改系统hosts的app或者dns过滤app。<br>
+pc端推荐chromium系（edge、chrome等）或者firefox系（firefox、waterfox等）浏览器，可安装相关扩展插件包括ublock origin或者adguard block之类的去广告插件，然后加入本规则即可<br>
+路由端推荐下载或开启adguard home服务管理路由连接设备，也可通过本地闲置手机端或pc端安装adguard home服务充当本地服务器，接管路由连接的其他设备。<br>
+如果需要请自行辨别复制相关规则<br>
+提示！某些去广告规则过于强大，容易造成误伤，请自行抓取日志，根据规则写白名单或者停用规则<br>
+规则分享：<br>
+1、abpmerge Rules规则：该规则合并自AdFilters，360，jiekouAD，AdGuard国内规则<br>
+https://cdn.jsdelivr.net/gh/damengzhu/abpmerge@main/abpmerge.txt</p>
+<p>2、ChinaList+EasyList(修正)：ChinaList and EasyList combination subscription<br>
+http://sub.adtchrome.com/adt-chinalist-easylist360.txt</p>
+<p>3、QuarkList：一款针对中国大陆地区用户的广告过滤列表，适用于 Adblock Plus、AdBlock、uBlock Origin等浏览器通用过滤扩展。本列表作为官方列表 EasyList 和 EasyList China 的补充，可以强化网页广告拦截效果。<br>
+https://cdn.jsdelivr.net/gh/francis-zhao/quarklist/dist/quarklist.txt</p>
+<p>4、百度搜索结果极限净化：效果过于强大，慎用<br>
+https://cdn.jsdelivr.net/gh/banbendalao/ADgk@master/kill-baidu-ad.txt</p>
+<p>5、I don't care about cookies：<br>
+https://www.i-dont-care-about-cookies.eu/abp/</p>
+<p>6、乘风 小众视频过滤规则：<br>
+https://fastly.jsdelivr.net/gh/xinggsf/Adblock-Plus-Rule@master/minority-mv.txt</p>
+<p>7、Fanboy's Annoyance List<br>
+https://secure.fanboy.co.nz/fanboy-annoyance.txt</p>
+<p>8、AdFilters：本规则合并自乘风视频广告过滤规则、EasylistChina、EasylistLite、CJX'sAnnoyance、EasyPrivacy<br>
+https://cdn.jsdelivr.net/gh/o0HalfLife0o/list/ad3.txt</p>
+<p>9、NoAppDownload<br>
+https://cdn.jsdelivr.net/gh/Noyllopa/NoAppDownload@master/NoAppDownload.txt</p>
+<p>10、coolapk 1007<br>
+https://code.gitlink.org.cn/api/v1/repos/keytoolazy/10007/raw/all</p>
+<p>11、sha_ad_hosts<br>
+https://gitlab.com/jdlingyu/ext_rules/raw/main/hosts/sha_ad_hosts</p>
+<p>12、yhosts<br>
+https://raw.githubusercontent.com/VeleSila/yhosts/master/hosts</p>
+<p>13、Adaway hosts<br>
+https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt</p>
+<p>14、googlehosts<br>
+https://raw.githubusercontent.com/googlehosts/hosts/master/hosts-files/hosts</p>
+<p>15、1Hosts<br>
+https://badmojr.github.io/1Hosts/Lite/hosts.txt</p>
+<p>16、neodev<br>
+https://neodev.team/lite_host<br>
+https://neodev.team/adblocker</p>
+<p>17、AdRules AdGuard Full List<br>
+https://adrules.top/adguard-full.txt</p>
+<p>18、XXKiller<br>
+https://raw.githubusercontent.com/DoingDog/XXKiller/main/w.txt</p>
+<p>19、几十KB的轻量规则：酷安@大萌主<br>
+https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt<br>
+https://code.gitlink.org.cn/damengzhu/banad/raw/branch/main/jiekouAD.txt</p>
+<p>20、Adblock Warning Removal List<br>
+https://easylist-downloads.adblockplus.org/antiadblockfilters.txt</p>
+<p>21、oisd基础<br>
+https://abp.oisd.nl/basic/</p>
+<p>22、Customize AdBlock Rule<br>
+http://mse.dl.360tpcdn.com/20210610/53b284ef5f4071a09d60d5f9f2a319fe.txt</p>
+<p>23、EasyList China+EasyList<br>
+https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt</p>
+<p>24、GOODBYEADS：该规则合并自AdGuard 规则、Tv规则、yhosts规则、大圣净化规则、EasyPrivacy隐私保护规则、乘风视频过滤规则、补充规则<br>
+https://raw.githubusercontent.com/8680/GOODBYEADS/master/rules.txt<br>
+https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Hosts/GoodbyeAds-Ultra.txt</p>
+<p>25、Notracking blocklist. No more ads, tracking and other virtual garbage<br>
+https://ghproxy.com/https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/Notracking_blocklist.txt</p>
+<p>26、ad-wars_hosts<br>
+https://ghproxy.com/https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/ad-wars_hosts.txt</p>
+<p>27、➗ Actually Legitimate URL Shortener Tool<br>
+https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt</p>
+<p>28、ad-hosts<br>
+https://www.trli.club/ad-hosts/ad-hosts-pro/ad-hosts.txt</p>
+<p>29、混合规则(测试版)<br>
+https://code.gitlink.org.cn/api/v1/repos/keytoolazy/adblock/raw/adblock</p>
+<p>30、fuck Ads_A<br>
+https://raw.githubusercontent.com/KPI0/fuck-Ads/main/A/ubo_rules_A.txt</p>
+<p>31、googlehosts<br>
+https://github.com/googlehosts/hosts</p>
+<p>32、nothingblock filter：block unnecessary web element to have 'nothing more to take away<br>
+https://cdn.jsdelivr.net/gh/anyuzu99/nothingblock/filter.txt</p>
+<p>33、ADSLJ：酷安@456300<br>
+https://code.gitlink.org.cn/zzp282/ads/raw/branch/master/ADSLJ.txt</p>
+<p>34、LARASPY<br>
+https://ghproxy.com/https://raw.githubusercontent.com/LARASPY/xhua/master/other/ublockRules.txt</p>
+<p>35、Mobile Ads filter J：移动端专用<br>
+https://raw.fastgit.org/jk278/Ad-J/main/Ad-J.txt</p>
+<p>36、AdRules AdBlock List：Mager Form EasyList,EasyListChina etc. and Add Some Rules<br>
+https://gitlab.com/cats-team/adrules/-/raw/main/adblock.txt</p>
+<p>37、abpmerge Rules：该规则合并自AdFilters，360，jiekouAD，AdGuard国内规则<br>
+https://code.gitlink.org.cn/damengzhu/abpmerge/raw/branch/main/abpmerge.txt</p>
+<p>38、EasyList China<br>
+https://easylist-downloads.adblockplus.org/easylistchina.txt</p>
+<p>39、360 rules<br>
+https://code.gitlink.org.cn/api/v1/repos/keytoolazy/adblock/raw/Qihoo_Adblock_108</p>
+<p>40、IMBALIST<br>
+https://gist.githubusercontent.com/imba-tjd/2c9817233ac6798d4f2bfe057f781ca5/raw/IMBALIST.TXT</p>
+<p>41、1024hosts<br>
+https://raw.githubusercontent.com/Goooler/1024_hosts/master/hosts</p>
+<p>42、adgk手机去广告规则<br>
+https://raw.githubusercontent.com/banbendalao/ADgk/master/ADgk.txt</p>
+<p>43、AD-hosts<br>
+https://raw.githubusercontent.com/E7KMbb/AD-hosts/master/system/etc/hosts</p>
+<p>44、edentwCustom<br>
+https://cdn.jsdelivr.net/gh/sbwml/halflife-list@master/ad-edentw.txt</p>
+<p>45、anti-ad系列<br>
+https://anti-ad.net/surge2.txt</p>
+<p>46、Spam404<br>
+https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt</p>
+<p>47、easyprivacy<br>
+https://easylist-downloads.adblockplus.org/easyprivacy.txt</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://sengluty198.github.io/post/hello-gridea/</id>
+        <link href="https://sengluty198.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
